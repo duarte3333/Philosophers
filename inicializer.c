@@ -9,6 +9,7 @@ void	*ft_create_philos(t_handler *handler)
 	while (i < handler->num_philosophers)
 	{
 		handler->philosophers[i].philo_id = i;
+		handler->philosophers[i].nb_meals = handler->num_times_to_eat;
 		handler->philosophers[i].handler = handler;
 		i++;
 	}

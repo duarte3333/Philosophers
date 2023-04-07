@@ -1,15 +1,16 @@
 #include "philosophers.h"
 
-long long int o = 0; 
+long long int o = 0;
 
-//1 milisegundo sao 1000 microsegundos
-void	ft_time(int time)
+void	a_sleep(t_philo *philo)
 {
-	struct timeval start;
-    unsigned long long elapsed_time;
+	//__uint64_t	ms;
+	int i;
 
-    gettimeofday(&start, NULL);
-    usleep(time*1000);
+	i = philo->philo_id;
+
+	printf("Tou a dormir e sou o %i\n", (i + 1));
+	ft_usleep(philo->handler->time_to_sleep);
 }
 
 void	eat(t_philo *philo)
@@ -28,7 +29,7 @@ void	eat(t_philo *philo)
 		pthread_mutex_lock(&(philo->handler->forks[i]));
 	}
 	printf("Tou a comer e sou o %i\n", (i + 1));
-	ft_time(philo->handler->time_to_eat);
+	ft_usleep(philo->handler->time_to_eat);
 	pthread_mutex_unlock(&(philo->handler->forks[i]));
 	pthread_mutex_unlock(&(philo->handler->forks[(i + 1) % philo->handler->num_philosophers]));
 }
@@ -38,9 +39,11 @@ void *routine(void *arg)
 	long long int i;
 	t_philo *philo;
 	philo = (t_philo*)arg;
-	while (philo->handler->num_times_to_eat)
+	while (philo->nb_meals)
 	{
 		eat(philo);
+		//a_sleep(philo);
+		(philo->nb_meals)--;
 	}
 	// i = 0;
 	// //eat(handler);

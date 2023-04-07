@@ -31,6 +31,7 @@ typedef struct s_philosopher
 {
 	int			last_time_eat;
 	int			philo_id;
+	int			nb_meals;
 	t_handler	*handler;
 }			t_philo;
 
@@ -45,16 +46,18 @@ typedef struct s_handler
 	int					times_to_eat;
 	int					num_philosophers;
 	int					num_times_to_eat;
+	int					time_to_start;
 	pthread_t			my_mutex;
 
 }		t_handler;
 
-int		ft_atoi(const char *nptr);
-int		ft_isdigit(int i);
-void	*ft_calloc(size_t nmemb, size_t size);
-void 	*routine(void *arg);
-int		ft_forks_inicializer(t_handler *handler);
-int		ft_threads_inicializer(t_handler *handler);
+int			ft_atoi(const char *nptr);
+int			ft_isdigit(int i);
+void		*ft_calloc(size_t nmemb, size_t size);
+void 		*routine(void *arg);
+int			ft_forks_inicializer(t_handler *handler);
+int			ft_threads_inicializer(t_handler *handler);
+void		ft_usleep(int milisec);
 
 
 

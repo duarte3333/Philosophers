@@ -23,6 +23,7 @@ SRCS = main.c \
 	   ft_calloc.c \
 	   ft_is_digit.c \
 	   inicializer.c \
+	   sleep.c \
 	   routine.c
 
 OBJS	= ${SRCS:.c=.o}
