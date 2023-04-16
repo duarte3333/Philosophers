@@ -19,11 +19,11 @@ bold_green=\033[1;32m
 yellow_bg=\033[43m
 
 SRCS = main.c \
-	   ft_atoi.c \
-	   ft_calloc.c \
-	   ft_is_digit.c \
+	   Aux/ft_atoi.c \
+	   Aux/ft_calloc.c \
+	   Aux/ft_is_digit.c \
 	   inicializer.c \
-	   sleep.c \
+	   usleep.c \
 	   routine.c
 
 OBJS	= ${SRCS:.c=.o}

@@ -1,4 +1,4 @@
-#include "philosophers.h"
+#include "../philosophers.h"
 
 //Ocupa n bytes com NULL a partir do elemento para o qual s está a apontar
 void	ft_bzero(void *s, size_t n)

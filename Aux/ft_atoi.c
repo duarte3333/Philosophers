@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../philosophers.h"
 
 //Verifica se temos um white space ou nao
 const char	*ft_white_spaces(const char *nptr)

@@ -47,6 +47,7 @@ typedef struct s_handler
 	int					num_philosophers;
 	int					num_times_to_eat;
 	int					time_to_start;
+	int					dead;
 	pthread_t			my_mutex;
 
 }		t_handler;
