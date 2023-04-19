@@ -6,6 +6,7 @@ void	*ft_create_philos(t_handler *handler)
 
 	i = 0;
 	handler->philosophers = (t_philo *)malloc(sizeof(t_philo) * handler->num_philosophers);
+	handler->dead = 0;
 	while (i < handler->num_philosophers)
 	{
 		handler->philosophers[i].philo_id = i;

@@ -33,6 +33,7 @@ fork will be (4+1 % 5) = 0*/
 void	eat(t_philo *philo)
 {
 	int i;
+	struct timeval	time_v;
 
 	i = philo->philo_id;
 	if (i < (philo->handler->num_philosophers - 1))
@@ -47,6 +48,8 @@ void	eat(t_philo *philo)
 	}
 	printf("Tou a comer e sou o %i\n", (i + 1));
 	ft_usleep(philo->handler->time_to_eat);
+	gettimeofday(&time_v, NULL);
+	philo->last_time_eat = (time_v.tv_sec * 1000) + (time_v.tv_usec / 1000);
 	if (i < (philo->handler->num_philosophers - 1))
 	{
 		pthread_mutex_unlock(&(philo->handler->forks[i]));
@@ -57,6 +60,8 @@ void	eat(t_philo *philo)
 		pthread_mutex_unlock(&(philo->handler->forks[(i + 1) % philo->handler->num_philosophers]));
 		pthread_mutex_unlock(&(philo->handler->forks[i]));
 	}
+	//printf("[lastly] %u\n", philo->last_time_eat);
+
 }
 
 int check_dead(t_philo *philo)
@@ -65,14 +70,19 @@ int check_dead(t_philo *philo)
 
 	struct timeval	time_v;
 	int				crr_time;
-
 	gettimeofday(&time_v, NULL);
 	crr_time = (time_v.tv_sec * 1000) + (time_v.tv_usec / 1000);
 
 	i = philo->philo_id;
-	if (crr_time - philo->last_time_eat > philo->handler->time_to_die)
+	printf("\n[curr] %i\n", crr_time);
+	printf("[last] %i\n", philo->last_time_eat);
+	printf("[sum] %i\n", crr_time - philo->last_time_eat);
+	printf("[ttd] %i\n", philo->handler->time_to_die);
+
+	if ((crr_time - philo->last_time_eat) > philo->handler->time_to_die)
 	{
-		philo->handler->dead = 1;
+		//philo->handler->dead = 1;
+		printf("Alguem morreu");
 		return (0);
 	}
 	return (1);

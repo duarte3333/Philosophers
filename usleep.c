@@ -17,7 +17,7 @@ void	ft_usleep(int milisec)
 	{
 		gettimeofday(&time_v, NULL);
 		start = (time_v.tv_sec * 1000) + (time_v.tv_usec / 1000);
-		// usleep(100);
+		usleep(100);
 	}
 }
 //1 milisegundo sao 1000 microsegundos

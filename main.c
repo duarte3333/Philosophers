@@ -44,6 +44,31 @@ void	ft_destroy(t_handler *handler)
 	}
 }
 
+//[time] 1681899453 
+//[start] -1727726930 
+//[end] -1727726730 
+void	time_(int milisec)
+{
+	struct timeval	time_v;
+	__uint64_t		start;
+	__uint64_t		end;
+
+	gettimeofday(&time_v, NULL);
+	printf("[time] %i \n", time_v);
+
+	start = (time_v.tv_sec * 1000) + (time_v.tv_usec / 1000);
+	printf("[start] %i \n", start);
+	end = start + milisec;
+	printf("[end] %i \n", end);
+	while (start < end)
+	{
+		gettimeofday(&time_v, NULL);
+		start = (time_v.tv_sec * 1000) + (time_v.tv_usec / 1000);
+		printf("[inside] %i \n", start);
+		usleep(100);
+	}
+}
+
 int main(int ac, char **av) 
 {
 	t_handler	*handler;
