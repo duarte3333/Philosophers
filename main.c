@@ -23,9 +23,9 @@ int	ft_parsing(char **av)
 void	all_prints(t_handler *handler)
 {
 	printf(" [num philo] %i philos\n", handler->num_philosophers);
-	printf(" [time to die] %i ms\n", handler->time_to_die);
-	printf(" [time to eat] %i ms\n", handler->time_to_eat);
-	printf(" [time to sleep] %i ms\n", handler->time_to_sleep);
+	printf(" [time to die] %lu ms\n", handler->time_to_die);
+	printf(" [time to eat] %lu ms\n", handler->time_to_eat);
+	printf(" [time to sleep] %lu ms\n", handler->time_to_sleep);
 	printf(" [num times to eat] %i meals\n\n", handler->num_times_to_eat);
 
 }
@@ -38,13 +38,15 @@ void	ft_destroy(t_handler *handler)
 	while (i < handler->num_philosophers)
 	{
 		if (pthread_mutex_destroy(&(handler->forks[i])) != 0) 
-			write (1, "Destroy error", 12);
+			write (1, "Destroy error\n", 14);
+		if (pthread_mutex_destroy(&(handler->philosophers[i].mutex_eat_check)) != 0)
+			write (1, "Destroy error\n", 14);
+		if (pthread_mutex_destroy(&(handler->philosophers[i].mutex_life)) != 0)
+			write (1, "Destroy error\n", 14);
 		i++;
 	}
-	if (pthread_mutex_destroy(&handler->mutex_printing) != 0)
-		write (1, "Destroy error", 12);
-	if (pthread_mutex_destroy(&handler->mutex_eat_check) != 0)
-		write (1, "Destroy error", 12);
+	free(handler->forks);
+	free(handler->threads);
 }
  
 int main(int ac, char **av) 
@@ -54,12 +56,12 @@ int main(int ac, char **av)
 	handler = (t_handler *)ft_calloc(sizeof(t_handler), 1);
     if (ac != 5 && ac != 6) {
 		write(1, "Usage: [num_philos] [time to die] [time to eat] [time to sleep] \n", 66);
-        exit(0);
+        return (0);
     }
 	if (!ft_parsing(av))
 	{
-		write(1, "Parsing error\n", 15);
-		return (0) ;
+		write(1, "Parsing error\n", 14);
+		return (0);
 	}
     handler->num_philosophers = ft_atoi(av[1]);
     handler->time_to_die = ft_atoi(av[2]);
@@ -70,11 +72,8 @@ int main(int ac, char **av)
 	else
 		handler->num_times_to_eat = INT_MAX;
 	all_prints(handler);
-	ft_forks_inicializer(handler);
+	ft_mutexs_inicializer(handler);
 	ft_threads_inicializer(handler);
 	ft_destroy(handler);
-	free(handler->threads);
-	free(handler->forks);
-	free(handler);
 }
    

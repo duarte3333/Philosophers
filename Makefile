@@ -1,6 +1,6 @@
 NAME = philosophers
 CC = cc
-CFLAGS = -O3 -Wall -Wextra #-pthread -g -fsanitize=thread #-Werror #-g #-fsanitize=address
+CFLAGS = -O3 -Wall -Wextra -pthread -g -fsanitize=thread #-Werror #-g #-fsanitize=address
 
 #valgrind --leak-check=full --show-leak-kinds=all 
 #--track-fds=yes ./pipex /dev/random  head out.txt
@@ -25,7 +25,8 @@ SRCS = main.c \
 	   inicializer.c \
 	   time.c \
 	   routine.c \
-	   check_actions.c
+	   forks.c \
+	   supervisor.c 
 
 OBJS	= ${SRCS:.c=.o}
 

@@ -30,24 +30,19 @@ time_t	get_time(t_handler *handler)
 	- handler->begin_time);
 }
 
-time_t	get_timestamp(t_handler *handler)
+time_t	get_timestamp(void)
 {
 	struct timeval	curr_time;
 
 	gettimeofday(&curr_time, 0);
-	return ((curr_time.tv_sec * 1000 + curr_time.tv_usec / 1000));
+	return ((curr_time.tv_sec * 1000l + curr_time.tv_usec / 1000l));
 }
 
 /* Funcao que imprime a acao atual do filosofo e o seu respetivo
 tempo em milisegundos */
 void print_status(t_handler *handler, int i, char *action)
 {
-	if (!(handler->dead))
-	{
-		pthread_mutex_lock(&(handler->mutex_printing));
-		printf("%lu	 %i  %s\n", (get_time(handler)), (i + 1), action);
-		pthread_mutex_unlock(&(handler->mutex_printing));
-	}
+	printf("%lu\t%i\t%s\n", (get_time(handler)), (i + 1), action);
 }
 //1 milisegundo sao 1000 microsegundos
 //__uint64_t representa unsigned long long
