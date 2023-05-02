@@ -1,4 +1,3 @@
-
 #include "philosophers.h"
 
 int	ft_parsing(char **av)
@@ -27,7 +26,7 @@ void	all_prints(t_handler *handler)
 	printf(" [time to die] %i ms\n", handler->time_to_die);
 	printf(" [time to eat] %i ms\n", handler->time_to_eat);
 	printf(" [time to sleep] %i ms\n", handler->time_to_sleep);
-	printf(" [num times to eat] %i meals\n", handler->num_times_to_eat);
+	printf(" [num times to eat] %i meals\n\n", handler->num_times_to_eat);
 
 }
 
@@ -42,38 +41,17 @@ void	ft_destroy(t_handler *handler)
 			write (1, "Destroy error", 12);
 		i++;
 	}
+	if (pthread_mutex_destroy(&handler->mutex_printing) != 0)
+		write (1, "Destroy error", 12);
+	if (pthread_mutex_destroy(&handler->mutex_eat_check) != 0)
+		write (1, "Destroy error", 12);
 }
-
-//[time] 1681899453 
-//[start] -1727726930 
-//[end] -1727726730 
-void	time_(int milisec)
-{
-	struct timeval	time_v;
-	__uint64_t		start;
-	__uint64_t		end;
-
-	gettimeofday(&time_v, NULL);
-	printf("[time] %i \n", time_v);
-
-	start = (time_v.tv_sec * 1000) + (time_v.tv_usec / 1000);
-	printf("[start] %i \n", start);
-	end = start + milisec;
-	printf("[end] %i \n", end);
-	while (start < end)
-	{
-		gettimeofday(&time_v, NULL);
-		start = (time_v.tv_sec * 1000) + (time_v.tv_usec / 1000);
-		printf("[inside] %i \n", start);
-		usleep(100);
-	}
-}
-
+ 
 int main(int ac, char **av) 
 {
 	t_handler	*handler;
 
-	handler = (t_handler *)malloc(sizeof(t_handler));
+	handler = (t_handler *)ft_calloc(sizeof(t_handler), 1);
     if (ac != 5 && ac != 6) {
 		write(1, "Usage: [num_philos] [time to die] [time to eat] [time to sleep] \n", 66);
         exit(0);
@@ -91,13 +69,10 @@ int main(int ac, char **av)
 		handler->num_times_to_eat = ft_atoi(av[5]);
 	else
 		handler->num_times_to_eat = INT_MAX;
-	
 	all_prints(handler);
-	pthread_mutex_init(&(handler->my_mutex), NULL);
 	ft_forks_inicializer(handler);
 	ft_threads_inicializer(handler);
 	ft_destroy(handler);
-	pthread_mutex_destroy(&(handler->my_mutex));
 	free(handler->threads);
 	free(handler->forks);
 	free(handler);

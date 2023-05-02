@@ -1,105 +1,87 @@
 #include "philosophers.h"
 
-
-/* This function puts the philos sleeping */
-void	to_sleep(t_philo *philo)
+void	new_sleep(long long time, t_handler *handler)
 {
-	int i;
+	long long i;
 
-	i = philo->philo_id;
-
-	printf("Tou a dormir e sou o %i\n", (i + 1));
-	ft_usleep(philo->handler->time_to_sleep);
+	i = get_timestamp(handler);
+	while (!(handler->dead))
+	{
+		if ((i - get_timestamp(handler)) >= time)
+			break ;
+		usleep(50);
+	}
 }
 
-/* This function puts the philos thinking */
-void	think(t_philo *philo)
+/* Esta funcao coloca o philo a dormir*/
+void to_sleep(t_philo *philo)
 {
-	int i;
-
-	i = philo->philo_id;
-
-	printf("Tou a pensar e sou o %i\n", (i + 1));
+	print_status(philo->handler, philo->philo_id, "is sleeping");
+	//ft_usleep(philo->handler->time_to_sleep);
+	new_sleep(philo->handler->time_to_sleep, philo->handler);
 }
 
-/* The eat function locks two forks' mutexes for a philosopher, 
-prints a message indicating the philosopher is eating, sleeps 
-for a specified time period, and then releases the two mutexes. 
-In case of 5 philos, the first fork will be 0 and take i=0 and (0+1 % 5)=0
-The last philo will be 4 and first fork will be i=4 and the second
-fork will be (4+1 % 5) = 0*/
+/* Esta funcao coloca o philo a pensar*/
+void think(t_philo *philo)
+{
+	print_status(philo->handler, philo->philo_id, "is thinking");
+}
 
-
-void	eat(t_philo *philo)
+/* A função bloqueia os mutexes de dois garfos para um filósofo, 
+da print da mensagem que esta a comer e espera o tempo que precisa para comer.
+O ultimo tempo em que comeram e atualizado com um mutex para garantir que 
+esta correto. */
+void eat(t_philo *philo)
 {
 	int i;
-	struct timeval	time_v;
+	struct timeval time_v;
 
 	i = philo->philo_id;
+	//philo->time_of_life = philo->handler->time_to_eat + get_time(philo->handler);
 	if (i < (philo->handler->num_philosophers - 1))
 	{
 		pthread_mutex_lock(&(philo->handler->forks[i]));
 		pthread_mutex_lock(&(philo->handler->forks[(i + 1) % philo->handler->num_philosophers]));
-	}	
-	else //caso seja o ultimo
+	}
+	else // caso seja o ultimo
 	{
 		pthread_mutex_lock(&(philo->handler->forks[(i + 1) % philo->handler->num_philosophers]));
 		pthread_mutex_lock(&(philo->handler->forks[i]));
 	}
-	printf("Tou a comer e sou o %i\n", (i + 1));
-	ft_usleep(philo->handler->time_to_eat);
-	gettimeofday(&time_v, NULL);
-	philo->last_time_eat = (time_v.tv_sec * 1000) + (time_v.tv_usec / 1000);
+	print_status(philo->handler, philo->philo_id, "has taken a fork");
+	print_status(philo->handler, philo->philo_id, "has taken a fork");
+	print_status(philo->handler, philo->philo_id, "is eating");
+	pthread_mutex_lock(&philo->handler->mutex_eat_check);
+	philo->last_time_eat = get_timestamp(philo->handler);
+	pthread_mutex_unlock(&philo->handler->mutex_eat_check);
+	//ft_usleep(philo->handler->time_to_eat);
+	new_sleep(philo->handler->time_to_eat, philo->handler);
+	philo->nb_meals++;
 	if (i < (philo->handler->num_philosophers - 1))
 	{
 		pthread_mutex_unlock(&(philo->handler->forks[i]));
 		pthread_mutex_unlock(&(philo->handler->forks[(i + 1) % philo->handler->num_philosophers]));
-	}	
-	else //caso seja o ultimo
+	}
+	else // caso seja o ultimo
 	{
 		pthread_mutex_unlock(&(philo->handler->forks[(i + 1) % philo->handler->num_philosophers]));
 		pthread_mutex_unlock(&(philo->handler->forks[i]));
 	}
-	//printf("[lastly] %u\n", philo->last_time_eat);
-
 }
 
-int check_dead(t_philo *philo)
-{
-	int i;
-
-	struct timeval	time_v;
-	int				crr_time;
-	gettimeofday(&time_v, NULL);
-	crr_time = (time_v.tv_sec * 1000) + (time_v.tv_usec / 1000);
-
-	i = philo->philo_id;
-	printf("\n[curr] %i\n", crr_time);
-	printf("[last] %i\n", philo->last_time_eat);
-	printf("[sum] %i\n", crr_time - philo->last_time_eat);
-	printf("[ttd] %i\n", philo->handler->time_to_die);
-
-	if ((crr_time - philo->last_time_eat) > philo->handler->time_to_die)
-	{
-		//philo->handler->dead = 1;
-		printf("Alguem morreu");
-		return (0);
-	}
-	return (1);
-	
-}
-
-void *routine(void *arg) 
+void *routine(void *arg)
 {
 	long long int i;
 	t_philo *philo;
-	philo = (t_philo*)arg;
-	while (philo->nb_meals && check_dead(philo))
+	philo = (t_philo *)arg;
+	//philo->time_of_life = philo->handler->time_to_eat + get_time(philo->handler);
+	while (!(philo->handler->dead))//&& !anyone_die(philo))
 	{
 		eat(philo);
+		if (philo->handler->all_eat)
+			break;
 		to_sleep(philo);
 		think(philo);
-		(philo->nb_meals)--;
 	}
-    return NULL;
+	return NULL;
 }
