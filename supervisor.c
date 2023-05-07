@@ -49,7 +49,8 @@ void *supervisor(void *arg)
 				return (kill_philo(handler));
 			usleep(100);
 		}
-		if (j >= handler->num_times_to_eat)
+		usleep(100);
+		if (j == (handler->num_philosophers))
 			return (kill_philo(handler));
 	}
 }

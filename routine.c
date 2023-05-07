@@ -7,14 +7,12 @@ esta correto. */
 void eat(t_philo *philo)
 {
 	lock_forks(philo);
-	print_status(philo->handler, philo->philo_id, "has taken a fork");
-	print_status(philo->handler, philo->philo_id, "has taken a fork");
-	print_status(philo->handler, philo->philo_id, "is eating");
 	pthread_mutex_lock(&philo->mutex_eat_check);
+	print_status(philo->handler, philo->philo_id, "is eating");
 	philo->time_of_life = get_timestamp() + philo->handler->time_to_die;
 	philo->nb_meals++;
-	pthread_mutex_unlock(&philo->mutex_eat_check);
 	ft_usleep(philo->handler->time_to_eat);
+	pthread_mutex_unlock(&philo->mutex_eat_check);
 	unlock_forks(philo);	
 }
 
@@ -42,6 +40,8 @@ void *routine(void *arg)
 	pthread_mutex_unlock(&philo->mutex_eat_check);
 	while (!check_individual_life(philo))
 	{
+		if (check_individual_life(philo))
+			return (NULL);
 		eat(philo);
 		if (check_individual_life(philo))
 			return (NULL);
@@ -50,8 +50,6 @@ void *routine(void *arg)
 		if (check_individual_life(philo))
 			return (NULL);
 		print_status(handler, philo->philo_id, "is thinking");
-		if (check_individual_life(philo))
-			return (NULL);
 	}
 	return (NULL);
 }

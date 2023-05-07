@@ -72,8 +72,19 @@ int main(int ac, char **av)
 	else
 		handler->num_times_to_eat = INT_MAX;
 	all_prints(handler);
-	ft_mutexs_inicializer(handler);
-	ft_threads_inicializer(handler);
-	ft_destroy(handler);
+	handler->begin_time = get_timestamp();
+	if (handler->num_philosophers == 1)
+	{
+		ft_usleep(handler->time_to_die);
+		print_status(handler, 1, "died");
+	}
+	else
+	{
+		ft_mutexs_inicializer(handler);
+		ft_threads_inicializer(handler);
+		ft_destroy(handler);
+	}
 }
    
+//Problema de nem todos comerem 5 800 200 200 7
+//Problema de morrer e comer a seguir comerem 4 310 200 100

@@ -40,9 +40,22 @@ time_t	get_timestamp(void)
 
 /* Funcao que imprime a acao atual do filosofo e o seu respetivo
 tempo em milisegundos */
+
 void print_status(t_handler *handler, int i, char *action)
-{
-	printf("%lu\t%i\t%s\n", (get_time(handler)), (i + 1), action);
+{	
+	//if (!check_individual(&(handler->philosophers[i])))
+	int dead;
+
+	if (handler->num_philosophers == 1)
+		printf("%lu\t%i\t%s\n", (get_time(handler)), (i + 1), action);
+	else
+	{
+		pthread_mutex_lock(&(handler->philosophers[i].mutex_life));
+		dead = handler->philosophers[i].dead;
+		pthread_mutex_unlock(&(handler->philosophers[i].mutex_life));
+		if (!dead)
+			printf("%lu\t%i\t%s\n", (get_time(handler)), (i + 1), action);
+	}
 }
 //1 milisegundo sao 1000 microsegundos
 //__uint64_t representa unsigned long long

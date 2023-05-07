@@ -23,6 +23,7 @@ void create_threads(t_handler *handler)
 	int i;
 	
 	i = 0;
+	handler->begin_time = get_timestamp();
 	while (i < (handler->num_philosophers))
 	{
 		if (pthread_create(&(handler->threads[i]), NULL, routine, &(handler->philosophers[i])) != 0) 
@@ -66,7 +67,6 @@ void	ft_threads_inicializer(t_handler *handler)
 {
 	handler->threads = (pthread_t *)ft_calloc(sizeof(pthread_t), handler->num_philosophers);
 	ft_create_philos(handler);
-	handler->begin_time = get_timestamp();
 	create_threads(handler);
 	join_threads(handler);
 }
