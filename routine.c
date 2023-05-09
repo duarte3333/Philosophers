@@ -11,8 +11,8 @@ void eat(t_philo *philo)
 	print_status(philo->handler, philo->philo_id, "is eating");
 	philo->time_of_life = get_timestamp() + philo->handler->time_to_die;
 	philo->nb_meals++;
-	ft_usleep(philo->handler->time_to_eat);
 	pthread_mutex_unlock(&philo->mutex_eat_check);
+	ft_usleep(philo->handler->time_to_eat);
 	unlock_forks(philo);	
 }
 

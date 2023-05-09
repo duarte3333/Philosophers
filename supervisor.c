@@ -52,5 +52,6 @@ void *supervisor(void *arg)
 		usleep(100);
 		if (j == (handler->num_philosophers))
 			return (kill_philo(handler));
+		usleep(100);
 	}
 }
