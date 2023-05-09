@@ -1,6 +1,6 @@
 NAME = philosophers
 CC = cc
-CFLAGS = -O3 -Wall -Wextra -Werror -pthread -g -fsanitize=thread#-g3 -fsanitize=address
+CFLAGS = -O3 -Wall -Wextra -Werror -pthread -fsanitize=address #-g -g3 -fsanitize=thread
 
 #valgrind --leak-check=full --show-leak-kinds=all 
 #--track-fds=yes ./pipex /dev/random  head out.txt
@@ -22,6 +22,8 @@ SRCS = main.c \
 	   Aux/ft_atoi.c \
 	   Aux/ft_calloc.c \
 	   Aux/ft_is_digit.c \
+	   Aux/ft_strlen.c \
+	   parser.c \
 	   inicializer.c \
 	   time.c \
 	   routine.c \

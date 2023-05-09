@@ -6,7 +6,7 @@
 /*   By: dsa-mora <dsa-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:36:39 by dsa-mora          #+#    #+#             */
-/*   Updated: 2023/05/09 14:36:56 by dsa-mora         ###   ########.fr       */
+/*   Updated: 2023/05/09 20:33:09 by dsa-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,13 @@ typedef struct s_handler
 }		t_handler;
 
 //Parsing
+size_t		ft_strlen(const char *str);
 int			ft_atoi(const char *nptr);
 int			ft_isdigit(int i);
 void		*ft_calloc(size_t nmemb, size_t size);
+int			ft_parsing(char **av);
+int			ft_check_limits(char *str);
+int			parse(t_handler *handler, char **av, int ac);
 
 //Threads and mutexs inicializer
 void		ft_mutexs_inicializer(t_handler *handler);

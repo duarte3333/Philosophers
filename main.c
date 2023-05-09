@@ -6,30 +6,11 @@
 /*   By: dsa-mora <dsa-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:09:04 by dsa-mora          #+#    #+#             */
-/*   Updated: 2023/05/09 14:59:59 by dsa-mora         ###   ########.fr       */
+/*   Updated: 2023/05/09 20:36:51 by dsa-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-int	ft_parsing(char **av)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (av[++i])
-	{
-		j = 0;
-		while (av[i][j])
-		{
-			if (!ft_isdigit(av[i][j]))
-				return (0);
-			j++;
-		}
-	}
-	return (1);
-}
 
 /* Esta funcao liberta as memorias na heap e as threads e mutexs */
 void	ft_destroy(t_handler *handler)
@@ -59,7 +40,7 @@ void	ft_loading(t_handler *handler)
 	if (handler->num_philosophers == 1)
 	{
 		ft_usleep(handler->time_to_die);
-		print_status(handler, 1, "died");
+		print_status(handler, 0, "died");
 	}
 	else
 	{
@@ -79,13 +60,11 @@ int	main(int ac, char **av)
 	{
 		write(1, "Usage: [num_philos] [time to die]", 34);
 		write(1, "[time to eat] [time to sleep] \n", 32);
+		free(handler);
 		return (0);
 	}
-	if (!ft_parsing(av))
-	{
-		write(1, "Parsing error\n", 15);
+	if (!parse(handler, av, ac))
 		return (0);
-	}
 	handler->num_philosophers = ft_atoi(av[1]);
 	handler->time_to_die = ft_atoi(av[2]);
 	handler->time_to_eat = ft_atoi(av[3]);
@@ -97,9 +76,6 @@ int	main(int ac, char **av)
 	handler->begin_time = get_timestamp();
 	ft_loading(handler);
 }
-
-//Problema de nem todos comerem 5 800 200 200 7
-//Problema de morrer e comer a seguir comerem 4 310 200 100
 
 /* 
 void	all_prints(t_handler *handler)
