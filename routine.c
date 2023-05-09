@@ -1,19 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   routine.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dsa-mora <dsa-mora@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/09 13:07:54 by dsa-mora          #+#    #+#             */
+/*   Updated: 2023/05/09 13:36:13 by dsa-mora         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 /* A função bloqueia os mutexes de dois garfos para um filósofo, 
 da print da mensagem que esta a comer e espera o tempo que precisa para comer.
-O ultimo tempo em que comeram e atualizado com um mutex para garantir que 
-esta correto. */
-void eat(t_philo *philo)
+O philo que comeu em seguida atualiza o numero de vezes que ja comeu */
+void	eat(t_philo *philo)
 {
 	lock_forks(philo);
 	pthread_mutex_lock(&philo->mutex_eat_check);
 	print_status(philo->handler, philo->philo_id, "is eating");
 	philo->time_of_life = get_timestamp() + philo->handler->time_to_die;
-	philo->nb_meals++;
 	pthread_mutex_unlock(&philo->mutex_eat_check);
 	ft_usleep(philo->handler->time_to_eat);
-	unlock_forks(philo);	
+	pthread_mutex_lock(&philo->mutex_eat_check);
+	philo->nb_meals++;
+	pthread_mutex_unlock(&philo->mutex_eat_check);
+	unlock_forks(philo);
 }
 
 /* O philo esta ver se morreu ou nao com base nas informacoes do handler */
@@ -29,10 +42,13 @@ int	check_individual_life(t_philo *philo)
 	return (0);
 }
 
-void *routine(void *arg)
+/* Esta a funcao que todas as threas, isto e, cada filosofo
+ira estar a executar em simultaneo */
+void	*routine(void *arg)
 {
-	t_philo *philo;
-	t_handler *handler;
+	t_philo		*philo;
+	t_handler	*handler;
+
 	philo = (t_philo *)arg;
 	handler = philo->handler;
 	pthread_mutex_lock(&philo->mutex_eat_check);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsa-mora <dsa-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 17:45:55 by dsa-mora          #+#    #+#             */
-/*   Updated: 2023/03/25 11:33:11 by dsa-mora         ###   ########.fr       */
+/*   Updated: 2023/05/09 13:55:13 by dsa-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-typedef struct s_philosopher t_philosopher;
-typedef struct s_handler t_handler;
+typedef struct s_philosopher	t_philosopher;
+typedef struct s_handler		t_handler;
 
 typedef struct s_philosopher
 {
@@ -63,27 +63,25 @@ int			ft_isdigit(int i);
 void		*ft_calloc(size_t nmemb, size_t size);
 
 //Threads and mutexs inicializer
-int			ft_mutexs_inicializer(t_handler *handler);
+void		ft_mutexs_inicializer(t_handler *handler);
 void		ft_threads_inicializer(t_handler *handler);
 
 // The rotine
-void 		*routine(void *arg);
-void 		to_sleep(t_philo *philo);
-void 		think(t_philo *philo);
-void 		eat(t_philo *philo);
-void 		lock_forks(t_philo *philo);
-void 		unlock_forks(t_philo *philo);
+void		*routine(void *arg);
+void		eat(t_philo *philo);
+void		lock_forks(t_philo *philo);
+void		unlock_forks(t_philo *philo);
 
 //The aux_rotine
-void 		*supervisor(void *arg);
+void		*supervisor(void *arg);
 int			check_life(t_handler *handler, int i);
-int		 	check_all_eaten(t_handler *handler, t_philo *philo, int j);
+int			check_all_eaten(t_handler *handler, t_philo *philo, int j);
 
 //Time
 time_t		get_time(t_handler *handler);
 time_t		get_timestamp(void);
 void		ft_usleep(int milisec);
-void 		print_status(t_handler *handler, int i, char *action);
+void		print_status(t_handler *handler, int i, char *action);
 
 
 #endif

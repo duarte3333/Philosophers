@@ -1,6 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   supervisor.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dsa-mora <dsa-mora@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/09 13:12:52 by dsa-mora          #+#    #+#             */
+/*   Updated: 2023/05/09 13:43:16 by dsa-mora         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
-static int check_eaten(t_handler *handler, t_philo *philo, int *j)
+/* Esta funcao ira informar o handler de que algum filosofo morreu
+caso algum dos filosofos tenha ultrapassado o tempo que consegue 
+estar vivo sem comer. 
+Isto tem de ser feito num instante em que o philo nao esteja a comer*/
+static int	check_eaten(t_handler *handler, t_philo *philo, int *j)
 {
 	pthread_mutex_lock(&philo->mutex_eat_check);
 	*j += (philo->nb_meals >= handler->num_times_to_eat);
@@ -8,15 +24,18 @@ static int check_eaten(t_handler *handler, t_philo *philo, int *j)
 	{	
 		handler->dead = 1;
 		print_status(handler, philo->philo_id, "died");
-		//exit(0);
 	}
 	pthread_mutex_unlock(&philo->mutex_eat_check);
 	return (handler->dead);
 }
 
-static void *kill_philo(t_handler *handler)
+/* Esta funcao caso receba a informacao do handler que alguem
+morreu, termina todas as thread. 
+Esta funcao tem de ser feita num momento em que o philo nao esteja
+a ver se ele proprio morreu*/
+static void	*kill_philo(t_handler *handler)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < handler->num_philosophers)
@@ -29,16 +48,17 @@ static void *kill_philo(t_handler *handler)
 	return (handler);
 }
 
-/* Esta funcao permite ver se o philo esta morte, 
+/* Esta funcao permite ver se o philo esta morto, 
 durante esta verificacao tem de se garantir que o philo nao esta
-a comer */
-void *supervisor(void *arg)
+a comer e tambem e verifica se todos ja comeram o numero de vezes
+que tem de comer*/
+void	*supervisor(void *arg)
 {
-	t_handler 	*handler;
-	int 		i;
+	t_handler	*handler;
+	int			i;
 	int			j;
-	
-	handler = (t_handler*)arg;
+
+	handler = (t_handler *)arg;
 	while (1)
 	{
 		i = -1;

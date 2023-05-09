@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   time.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dsa-mora <dsa-mora@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/09 13:13:02 by dsa-mora          #+#    #+#             */
+/*   Updated: 2023/05/09 13:13:16 by dsa-mora         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 /* Esta funcao e uma implementacao da funcao uspleep(). 
@@ -40,11 +52,9 @@ time_t	get_timestamp(void)
 
 /* Funcao que imprime a acao atual do filosofo e o seu respetivo
 tempo em milisegundos */
-
-void print_status(t_handler *handler, int i, char *action)
+void	print_status(t_handler *handler, int i, char *action)
 {	
-	//if (!check_individual(&(handler->philosophers[i])))
-	int dead;
+	int	dead;
 
 	if (handler->num_philosophers == 1)
 		printf("%lu\t%i\t%s\n", (get_time(handler)), (i + 1), action);
