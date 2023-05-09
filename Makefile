@@ -1,6 +1,6 @@
 NAME = philosophers
 CC = cc
-CFLAGS = -O3 -Wall -Wextra -Werror -pthread -g -fsanitize=address #-g -fsanitize=thread
+CFLAGS = -O3 -Wall -Wextra -Werror -pthread -g -fsanitize=thread#-g3 -fsanitize=address
 
 #valgrind --leak-check=full --show-leak-kinds=all 
 #--track-fds=yes ./pipex /dev/random  head out.txt

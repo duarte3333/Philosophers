@@ -6,7 +6,7 @@
 /*   By: dsa-mora <dsa-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:09:04 by dsa-mora          #+#    #+#             */
-/*   Updated: 2023/05/09 14:15:40 by dsa-mora         ###   ########.fr       */
+/*   Updated: 2023/05/09 14:59:59 by dsa-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,9 @@ void	ft_destroy(t_handler *handler)
 			write (1, "Destroy error\n", 14);
 		if (pthread_mutex_destroy(&(handler->philosophers[i].mutex_life)) != 0)
 			write (1, "Destroy error\n", 14);
-		//free((void *)handler->threads);
-		//handler->threads++;
 		i++;
 	}
-	free((void *)handler->aux_thread);
+	free((void *)handler->philosophers);
 	free((void *)handler->forks);
 	free((void *)handler->threads);
 }

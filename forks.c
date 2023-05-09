@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsa-mora <dsa-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/09 12:10:02 by dsa-mora          #+#    #+#             */
-/*   Updated: 2023/05/09 13:47:40 by dsa-mora         ###   ########.fr       */
+/*   Created: 2023/05/09 14:42:52 by dsa-mora          #+#    #+#             */
+/*   Updated: 2023/05/09 14:42:54 by dsa-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,3 @@ void	unlock_forks(t_philo *philo)
 	print_status(philo->handler, philo->philo_id, "has taken a fork");
 	print_status(philo->handler, philo->philo_id, "has taken a fork");
 }
-

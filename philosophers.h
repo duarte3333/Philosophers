@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsa-mora <dsa-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/16 17:45:55 by dsa-mora          #+#    #+#             */
-/*   Updated: 2023/05/09 13:55:13 by dsa-mora         ###   ########.fr       */
+/*   Created: 2023/05/09 14:36:39 by dsa-mora          #+#    #+#             */
+/*   Updated: 2023/05/09 14:36:56 by dsa-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,5 @@ time_t		get_time(t_handler *handler);
 time_t		get_timestamp(void);
 void		ft_usleep(int milisec);
 void		print_status(t_handler *handler, int i, char *action);
-
 
 #endif
