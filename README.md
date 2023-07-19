@@ -30,6 +30,7 @@ The project's applications include learning **multithreading**, **critical secti
 <div align="center">
     <img src="https://github.com/duarte3333/Philosophers/assets/76222459/28ab31ce-4d1a-4269-8314-eb57477fe4f1" alt="Untitled" width="50%">
 </div>
+
 ## What is a thread?
 
 A thread is a lightweight process that can run concurrently with other threads. It executes a sequence of instructions independently, allowing for multiple tasks to be performed simultaneously. Threads share memory with other threads and the main program, but have their own stack and registers. This enables them to execute code independently, but requires proper synchronization for shared resources.
