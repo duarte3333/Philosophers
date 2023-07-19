@@ -16,9 +16,9 @@ However, there is a constraint that poses a challenge: there are a limited numbe
 
 This constraint creates a potential issue. If every philosopher tries to grab the chopstick on their left simultaneously, a deadlock can occur, where no philosopher can proceed with their meal.
 
-<center>
+<div style="display: flex; justify-content: center;">
     <img src="https://github.com/duarte3333/Philosophers/assets/76222459/23d42ea7-f65a-4834-a55b-c86ced770b6c" alt="Untitled">
-</center>
+</div>
 
 To overcome this problem, a synchronization strategy or protocol needs to be devised. This strategy should ensure that each philosopher can acquire the necessary chopsticks without causing conflicts or resource contention among themselves. The aim is to find a solution that allows all philosophers to eat without encountering a deadlock situation.
 
