@@ -2,13 +2,11 @@
 
 ## Goal of the project
 
-The goal is to gain proficiency in **concurrent programming** concepts to implement a solution to the dining philosophers problem, ensuring that philosophers can eat without deadlocks or starvation. Through this project, I have learned how to effectively utilize **threads**, **mutexes**, and other synchronization mechanisms to manage shared resources.
+The goal is to gain proficiency in **concurrent programming** concepts to implement a solution to the dining philosophers problem, ensuring that **philosophers can eat without deadlocks** or starvation. Through this project, I have learned how to effectively utilize **threads**, **mutexes**, and other synchronization mechanisms to manage shared resources.
 
 ### Deadlock
 
 Situation that occurs in concurrent computing when two or more processes or threads become **permanently blocked**, each waiting for the other to release a resource or take a specific action, resulting in a halt in the system's progress. 
-
-**Halt:** When a system halts, it means that it comes to a complete stop and is no longer performing any operations or tasks.
 
 ### The problem
 
