@@ -16,9 +16,10 @@ However, there is a constraint that poses a challenge: there are a limited numbe
 
 This constraint creates a potential issue. If every philosopher tries to grab the chopstick on their left simultaneously, a deadlock can occur, where no philosopher can proceed with their meal.
 
-<div style="display: flex; justify-content: center;">
-    <img src="https://github.com/duarte3333/Philosophers/assets/76222459/23d42ea7-f65a-4834-a55b-c86ced770b6c" alt="Untitled">
+<div align="center">
+  <img src="https://github.com/duarte3333/Philosophers/assets/76222459/23d42ea7-f65a-4834-a55b-c86ced770b6c" alt="Untitled" width="60%">
 </div>
+
 
 To overcome this problem, a synchronization strategy or protocol needs to be devised. This strategy should ensure that each philosopher can acquire the necessary chopsticks without causing conflicts or resource contention among themselves. The aim is to find a solution that allows all philosophers to eat without encountering a deadlock situation.
 
@@ -30,9 +31,9 @@ The project's applications include learning **multithreading**, **critical secti
 
 A thread is a lightweight process that can run concurrently with other threads. It executes a sequence of instructions independently, allowing for multiple tasks to be performed simultaneously. Threads share memory with other threads and the main program, but have their own stack and registers. This enables them to execute code independently, but requires proper synchronization for shared resources.
 
-<center>
-    <img src="https://github.com/duarte3333/Philosophers/assets/76222459/c6c162d7-3d6a-4a8c-9615-99536cbaac4b" alt="Untitled">
-</center>
+<div align="center">
+    <img src="https://github.com/duarte3333/Philosophers/assets/76222459/c6c162d7-3d6a-4a8c-9615-99536cbaac4b" alt="Untitled width="60%">
+</div>
 
 Threads are often used to improve the performance and responsiveness of programs, as they can allow multiple tasks to be executed concurrently. For example, a web server might use threads to handle multiple requests from different clients at the same time.
 
@@ -127,9 +128,9 @@ In summary, conditional variables facilitate synchronization and coordination am
 
 ### Care to be taken
 
-<center>
-    <img src="https://github.com/duarte3333/Philosophers/assets/76222459/cc98a788-4cd9-4707-8a06-c7e6d2933d72" alt="Untitled">
-</center>
+<div align="center">
+    <img src="https://github.com/duarte3333/Philosophers/assets/76222459/cc98a788-4cd9-4707-8a06-c7e6d2933d72" alt="Untitled" width="40%">
+</div>
 
 When a task calls `wait()` on a condition variable, it enters the waiting queue atomically and releases the latch. If the condition changes and a `signal` or `broadcast` is issued, at least one task in the waiting queue will be unblocked.
 
