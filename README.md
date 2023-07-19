@@ -27,7 +27,7 @@ To overcome this problem, a synchronization strategy or protocol needs to be dev
 
 The project's applications include learning **multithreading**, **critical section management**, and **deadlock prevention**, all of which are crucial in concurrent programming and managing shared resources efficiently.
 
-# What is a thread?
+## What is a thread?
 
 A thread is a lightweight process that can run concurrently with other threads. It executes a sequence of instructions independently, allowing for multiple tasks to be performed simultaneously. Threads share memory with other threads and the main program, but have their own stack and registers. This enables them to execute code independently, but requires proper synchronization for shared resources.
 
@@ -150,7 +150,7 @@ It states that the **speedup is limited** by the portion of the task that cannot
 
 The larger this sequential fraction, the smaller the speedup achieved with more processors. The illusion of an infinitely large number of processors can be misleading, as the speeds of each virtual processor may differ and be unpredictable, ultimately impacting the overall system performance and limiting the speedup achieved.
 
-# What is a mutex?
+## What is a mutex?
 
 ### Simpler Definition
 
