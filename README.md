@@ -32,7 +32,7 @@ The project's applications include learning **multithreading**, **critical secti
 A thread is a lightweight process that can run concurrently with other threads. It executes a sequence of instructions independently, allowing for multiple tasks to be performed simultaneously. Threads share memory with other threads and the main program, but have their own stack and registers. This enables them to execute code independently, but requires proper synchronization for shared resources.
 
 <div align="center">
-    <img src="https://github.com/duarte3333/Philosophers/assets/76222459/c6c162d7-3d6a-4a8c-9615-99536cbaac4b" alt="Untitled width="60%">
+    <img src="https://github.com/duarte3333/Philosophers/assets/76222459/c6c162d7-3d6a-4a8c-9615-99536cbaac4b" alt="Untitled width="40%">
 </div>
 
 Threads are often used to improve the performance and responsiveness of programs, as they can allow multiple tasks to be executed concurrently. For example, a web server might use threads to handle multiple requests from different clients at the same time.
@@ -129,7 +129,7 @@ In summary, conditional variables facilitate synchronization and coordination am
 ### Care to be taken
 
 <div align="center">
-    <img src="https://github.com/duarte3333/Philosophers/assets/76222459/cc98a788-4cd9-4707-8a06-c7e6d2933d72" alt="Untitled" width="40%">
+    <img src="https://github.com/duarte3333/Philosophers/assets/76222459/cc98a788-4cd9-4707-8a06-c7e6d2933d72" alt="Untitled" width="60%">
 </div>
 
 When a task calls `wait()` on a condition variable, it enters the waiting queue atomically and releases the latch. If the condition changes and a `signal` or `broadcast` is issued, at least one task in the waiting queue will be unblocked.
